@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32714.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{A7C985B1-DFC1-4B34-916D-8A994C7C19BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLEngine", "GraphQL\GraphQLEngine.csproj", "{B4808CCE-683E-4109-BD07-07C417084C8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyAPI", "VacancyAPI\VacancyAPI.csproj", "{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7C985B1-DFC1-4B34-916D-8A994C7C19BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C985B1-DFC1-4B34-916D-8A994C7C19BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C985B1-DFC1-4B34-916D-8A994C7C19BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C985B1-DFC1-4B34-916D-8A994C7C19BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4808CCE-683E-4109-BD07-07C417084C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4808CCE-683E-4109-BD07-07C417084C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4808CCE-683E-4109-BD07-07C417084C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4808CCE-683E-4109-BD07-07C417084C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29DA5501-951F-45CE-8A91-A3A81CBDFDD1}
+	EndGlobalSection
+EndGlobal
