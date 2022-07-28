@@ -13,7 +13,7 @@ namespace GetVacancies.Features.Vacancy.CreateVacancy
         {
             type.FieldAsync<ListGraphType<GetVacancyOutputGraphType>>(
                 "GetAllVacancies",
-                resolve: async context => await context.RequestServices.GetRequiredService<IVacancyStorage>().GetAll());
+                resolve: async context => await context.RequestServices.GetRequiredService<IVacancyStorage>().GetAllAsync());
 
             type.FieldAsync<GetVacancyOutputGraphType>(
                 "GetVacancyById",
@@ -21,7 +21,7 @@ namespace GetVacancies.Features.Vacancy.CreateVacancy
                     new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "id of the vacancy" }
                 ),
                 resolve: async context =>
-                await context.RequestServices.GetRequiredService<IVacancyStorage>().GetById(context.GetArgument<Guid>("id")));
+                await context.RequestServices.GetRequiredService<IVacancyStorage>().GetByIdAsync(context.GetArgument<Guid>("id")));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GraphQL.Types;
 using GraphQLEngine.Features.Vacancy.CreateVacancy;
 using GraphQLEngine.Features.Vacancy.DeleteVacancy;
+using GraphQLEngine.Features.Vacancy.EditVacancy;
 
 namespace GraphQLEngine
 {
@@ -12,6 +13,7 @@ namespace GraphQLEngine
 
             this.AddDeleteVacancyMutation();
             this.AddCreateVacancyMutation();
+            this.AddEditVacancyMutation();
         }
     }
 }

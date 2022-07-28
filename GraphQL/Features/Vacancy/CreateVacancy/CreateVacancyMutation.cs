@@ -18,7 +18,7 @@ namespace GraphQLEngine.Features.Vacancy.CreateVacancy
             resolve: async context =>
             {
                 var vacancy = context.GetArgument<CreateVacancyInput>("vacancy");
-                return await context.RequestServices.GetRequiredService<IVacancyStorage>().AddVacancy(vacancy);
+                return await context.RequestServices.GetRequiredService<IVacancyStorage>().AddVacancyAsync(vacancy);
             });
         }
     }

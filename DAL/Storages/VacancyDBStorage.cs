@@ -3,6 +3,8 @@ using GraphQLEngine.Features.Vacancy;
 using GraphQLEngine.Features.Vacancy.CreateVacancy.Input;
 using GraphQLEngine.Features.Vacancy.CreateVacancy.Output;
 using GraphQLEngine.Features.Vacancy.DeleteVacancy.Output;
+using GraphQLEngine.Features.Vacancy.EditVacancy.Input;
+using GraphQLEngine.Features.Vacancy.EditVacancy.Output;
 using GraphQLEngine.Features.Vacancy.GetVacancies.Output;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +19,7 @@ namespace DAL.Storages
             _context = context;
         }
 
-        public async Task<CreateVacancyOutput> AddVacancy(CreateVacancyInput vacancy)
+        public async Task<CreateVacancyOutput> AddVacancyAsync(CreateVacancyInput vacancy)
         {
             var entity = new VacancyEntity(vacancy.Title, vacancy.Description);
 
@@ -28,7 +30,7 @@ namespace DAL.Storages
             return new CreateVacancyOutput(result.Entity.Id, result.Entity.Title, result.Entity.Description);
         }
 
-        public async Task<IEnumerable<GetVacancyOutput>> GetAll()
+        public async Task<IEnumerable<GetVacancyOutput>> GetAllAsync()
         {
             var entities = await _context.Vacancy.AsNoTracking().ToListAsync();
 
@@ -39,20 +41,38 @@ namespace DAL.Storages
             return result;
         }
 
-        public async Task<GetVacancyOutput?> GetById(Guid id)
+        public async Task<GetVacancyOutput?> GetByIdAsync(Guid id)
         {
-            var entity = _context.Vacancy.AsNoTracking().FirstOrDefault(e => e.Id == id);
+            var entity = await _context.Vacancy.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
 
             return entity != null ? new GetVacancyOutput(entity.Id, entity.Title, entity.Description) : null;
         }
 
-        public async Task<DeleteVacancyOutput> Delete(Guid id)
+        public async Task<DeleteVacancyOutput> DeleteAsync(Guid id)
         {
             var result = _context.Vacancy.Remove(await _context.Vacancy.Where(e => e.Id == id).FirstOrDefaultAsync());
 
             await _context.SaveChangesAsync();
 
             return new DeleteVacancyOutput(result.Entity.Id, result.Entity.Title, result.Entity.Description);
+        }
+
+        public async Task<EditVacancyOutputData> EditVacancyAsync(ValidEditVacancyInput vacancy)
+        {
+            var relatedEntity = await _context.Vacancy.FindAsync(vacancy.Id);
+
+            ArgumentNullException.ThrowIfNull(relatedEntity);
+
+            _context.Entry(relatedEntity).CurrentValues.SetValues(vacancy);
+
+            await _context.SaveChangesAsync();
+
+            return new EditVacancyOutputData(relatedEntity.Id, relatedEntity.Title, relatedEntity.Description);
+        }
+
+        public async Task<bool> IsVacancyIdExist(Guid id)
+        {
+            return await _context.Vacancy.Where(v=>v.Id == id).AnyAsync();
         }
     }
 }

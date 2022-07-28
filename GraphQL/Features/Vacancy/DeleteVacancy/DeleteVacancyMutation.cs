@@ -13,7 +13,7 @@ namespace GraphQLEngine.Features.Vacancy.DeleteVacancy
                 "DeleteVacancy",
                 arguments: new QueryArguments(
                     new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "id of the vacancy for removing" }),
-                    resolve: async context => await context.RequestServices.GetRequiredService<IVacancyStorage>().Delete(context.GetArgument<Guid>("id"))
+                    resolve: async context => await context.RequestServices.GetRequiredService<IVacancyStorage>().DeleteAsync(context.GetArgument<Guid>("id"))
                 );
         }
     }
