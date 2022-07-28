@@ -2,7 +2,7 @@
 
 namespace GraphQLEngine.Features.Vacancy.CreateVacancy.Output
 {
-    internal class CreateVacancyOutputGraphType : ObjectGraphType<CreateVacancyOutput>
+    public class CreateVacancyOutputGraphType : ObjectGraphType<CreateVacancyOutput>
     {
         public CreateVacancyOutputGraphType()
         {

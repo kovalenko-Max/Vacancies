@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLEngine", "GraphQL\Gr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyAPI", "VacancyAPI\VacancyAPI.csproj", "{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EB9B6CD5-B8B8-4B3E-99B6-FCF12B6A1700}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacancyAPI.Test", "VacancyAPI.Test\VacancyAPI.Test.csproj", "{1F98747C-5B28-4338-A346-D6588D5839B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{4DE08A4B-C4E1-4C70-BBF7-8DD79AF305A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +33,17 @@ Global
 		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{408AE6A8-9AD5-4641-BC9C-5E6E56AF773C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F98747C-5B28-4338-A346-D6588D5839B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F98747C-5B28-4338-A346-D6588D5839B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F98747C-5B28-4338-A346-D6588D5839B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F98747C-5B28-4338-A346-D6588D5839B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F98747C-5B28-4338-A346-D6588D5839B8} = {4DE08A4B-C4E1-4C70-BBF7-8DD79AF305A3}
+		{4DE08A4B-C4E1-4C70-BBF7-8DD79AF305A3} = {EB9B6CD5-B8B8-4B3E-99B6-FCF12B6A1700}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29DA5501-951F-45CE-8A91-A3A81CBDFDD1}
