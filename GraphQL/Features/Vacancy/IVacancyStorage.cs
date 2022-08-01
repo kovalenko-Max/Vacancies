@@ -9,7 +9,7 @@ namespace GraphQLEngine.Features.Vacancy
 {
     public interface IVacancyStorage
     {
-        public Task<CreateVacancyOutput> AddVacancyAsync(CreateVacancyInput vacancy);
+        public Task<CreateVacancyOutputData> CreateVacancyAsync(ValidCreateVacancyInput vacancy);
         public Task<DeleteVacancyOutput> DeleteAsync(Guid guid);
         public Task<EditVacancyOutputData> EditVacancyAsync(ValidEditVacancyInput vacancy);
         public Task<IEnumerable<GetVacancyOutput>> GetAllAsync();

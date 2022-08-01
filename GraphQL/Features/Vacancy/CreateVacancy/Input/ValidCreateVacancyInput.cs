@@ -1,23 +1,16 @@
-﻿using GraphQLEngine.Features.Vacancy.CreateVacancy.Input;
-using GraphQLEngine.Features.Vacancy.EditVacancy.Output;
+﻿using GraphQLEngine.Features.Vacancy.Validation.Exceptions;
 using GraphQLEngine.Features.Vacancy.Validation;
-using GraphQLEngine.Features.Vacancy.Validation.Exceptions;
 
-namespace GraphQLEngine.Features.Vacancy.EditVacancy.Input;
-public record ValidEditVacancyInput(Guid Id, string Title, string Description, long? WageFrom = default, long? WageTo = default)
+namespace GraphQLEngine.Features.Vacancy.CreateVacancy.Input;
+public record ValidCreateVacancyInput(string Title, string Description, long? WageFrom = default, long? WageTo = default)
 {
-    public static async Task<Result<ValidEditVacancyInput, VacancyValidationException>> From(EditVacancyInput input, IVacancyStorage storage)
+    public static Result<ValidCreateVacancyInput, VacancyValidationException> From(CreateVacancyInput input)
     {
         var errors = new List<VacancyValidationException>();
 
         var titleValidationResult = ValidTitle.Create(input.Title);
         var descriptionValidationResult = ValidDescription.Create(input.Description);
         var wageValidationResult = WageValidator.Validate(input.WageFrom, input.WageTo);
-
-        if (!await storage.IsVacancyIdExist(input.Id))
-        {
-            errors.Add(new VacancyIdValidationException($"Vacancy with id: {input.Id} does not exist"));
-        }
 
         errors.AddRange(titleValidationResult.Errors);
         errors.AddRange(descriptionValidationResult.Errors);
@@ -30,8 +23,7 @@ public record ValidEditVacancyInput(Guid Id, string Title, string Description, l
 
         if (wageValidationResult.GetValueForSure().IsExist)
         {
-            return new ValidEditVacancyInput(
-            input.Id,
+            return new ValidCreateVacancyInput(
             titleValidationResult.GetValueForSure(),
             descriptionValidationResult.GetValueForSure(),
             wageValidationResult.GetValueForSure().WageFrom,
@@ -39,10 +31,9 @@ public record ValidEditVacancyInput(Guid Id, string Title, string Description, l
         }
         else
         {
-            return new ValidEditVacancyInput(
-                input.Id,
-            titleValidationResult.GetValueForSure(),
-            descriptionValidationResult.GetValueForSure());
+            return new ValidCreateVacancyInput(
+                titleValidationResult.GetValueForSure(),
+                descriptionValidationResult.GetValueForSure());
         }
     }
 }

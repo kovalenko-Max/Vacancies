@@ -15,9 +15,18 @@ namespace VacancyAPI.Test.Helpers
                     {
                       createVacancy(vacancy: $input)
                       {
-                        id
-                        title
-                        description
+                        data{
+                          id
+                          title
+                          description
+                          wageFrom
+                          wageTo
+                        }
+                        errors
+                        {
+                          field
+                          message
+                        }
                       }
                     }
                 ",
@@ -41,6 +50,8 @@ namespace VacancyAPI.Test.Helpers
                           id
                           title
                           description
+                          wageFrom
+                          wageTo
                         }
                         errors
                         {

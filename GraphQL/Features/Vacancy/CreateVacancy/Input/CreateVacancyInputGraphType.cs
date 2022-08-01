@@ -9,7 +9,9 @@ namespace GraphQLEngine.Features.Vacancy.CreateVacancy.Input
             Name = nameof(CreateVacancyInputGraphType);
 
             Field(v => v.Title);
-            Field(v => v.Description, nullable: true);
+            Field(v => v.Description);
+            Field(v => v.WageFrom, nullable: true);
+            Field(v => v.WageTo, nullable: true);
         }
     }
 }

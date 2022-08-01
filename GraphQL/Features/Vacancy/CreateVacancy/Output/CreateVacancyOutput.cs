@@ -1,3 +1,4 @@
-﻿namespace GraphQLEngine.Features.Vacancy.CreateVacancy.Output;
+﻿using GraphQLEngine.Features.Vacancy.Validation.Exceptions;
 
-public record CreateVacancyOutput(Guid Id, string Title, string? Description);
+namespace GraphQLEngine.Features.Vacancy.CreateVacancy.Output;
+public record CreateVacancyOutput(CreateVacancyOutputData? Data = null, IEnumerable<VacancyValidationException>? Errors = null);

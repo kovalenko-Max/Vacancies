@@ -19,15 +19,20 @@ namespace DAL.Storages
             _context = context;
         }
 
-        public async Task<CreateVacancyOutput> AddVacancyAsync(CreateVacancyInput vacancy)
+        public async Task<CreateVacancyOutputData> CreateVacancyAsync(ValidCreateVacancyInput vacancy)
         {
-            var entity = new VacancyEntity(vacancy.Title, vacancy.Description);
+            var entity = new VacancyEntity(vacancy.Title, vacancy.Description, vacancy.WageFrom, vacancy.WageTo);
 
             var result = await _context.Vacancy.AddAsync(entity);
 
             await _context.SaveChangesAsync();
 
-            return new CreateVacancyOutput(result.Entity.Id, result.Entity.Title, result.Entity.Description);
+            return new CreateVacancyOutputData(
+                result.Entity.Id, 
+                result.Entity.Title, 
+                result.Entity.Description, 
+                result.Entity.WageFrom,
+                result.Entity.WageTo);
         }
 
         public async Task<IEnumerable<GetVacancyOutput>> GetAllAsync()
@@ -36,7 +41,7 @@ namespace DAL.Storages
 
             var result = new List<GetVacancyOutput>();
 
-            entities.ForEach(e => result.Add(new GetVacancyOutput(e.Id, e.Title, e.Description)));
+            entities.ForEach(e => result.Add(new GetVacancyOutput(e.Id, e.Title, e.Description, e.WageFrom, e.WageTo)));
 
             return result;
         }
@@ -45,7 +50,7 @@ namespace DAL.Storages
         {
             var entity = await _context.Vacancy.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
 
-            return entity != null ? new GetVacancyOutput(entity.Id, entity.Title, entity.Description) : null;
+            return entity != null ? new GetVacancyOutput(entity.Id, entity.Title, entity.Description, entity.WageFrom, entity.WageTo) : null;
         }
 
         public async Task<DeleteVacancyOutput> DeleteAsync(Guid id)
@@ -67,7 +72,12 @@ namespace DAL.Storages
 
             await _context.SaveChangesAsync();
 
-            return new EditVacancyOutputData(relatedEntity.Id, relatedEntity.Title, relatedEntity.Description);
+            return new EditVacancyOutputData(
+                relatedEntity.Id, 
+                relatedEntity.Title, 
+                relatedEntity.Description, 
+                relatedEntity.WageFrom, 
+                relatedEntity.WageTo);
         }
 
         public async Task<bool> IsVacancyIdExist(Guid id)

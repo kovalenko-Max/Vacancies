@@ -11,6 +11,8 @@ namespace GraphQLEngine.Features.Vacancy.EditVacancy.Input
             Field(v => v.Id);
             Field(v => v.Title);
             Field(v => v.Description);
+            Field(v => v.WageFrom, nullable: true);
+            Field(v => v.WageTo, nullable: true);
         }
     }
 }

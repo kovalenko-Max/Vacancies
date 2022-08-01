@@ -62,6 +62,8 @@ internal class EditVacancyMutation
         Assert.NotNull(editVacancyOutput.Data);
         Assert.That(editVacancyOutput.Data.Title, Is.EqualTo(input.Title));
         Assert.That(editVacancyOutput.Data.Description, Is.EqualTo(input.Description));
+        Assert.That(editVacancyOutput.Data.WageFrom, Is.EqualTo(input.WageFrom));
+        Assert.That(editVacancyOutput.Data.WageTo, Is.EqualTo(input.WageTo));
 
         var dbEntry = await _context.Vacancy.Where(v => v.Id == editVacancyOutput.Data.Id).FirstOrDefaultAsync();
 
@@ -69,6 +71,8 @@ internal class EditVacancyMutation
         Assert.That(editVacancyOutput.Data.Id, Is.EqualTo(dbEntry.Id));
         Assert.That(editVacancyOutput.Data.Title, Is.EqualTo(dbEntry.Title));
         Assert.That(editVacancyOutput.Data.Description, Is.EqualTo(dbEntry.Description));
+        Assert.That(editVacancyOutput.Data.WageFrom, Is.EqualTo(dbEntry.WageFrom));
+        Assert.That(editVacancyOutput.Data.WageTo, Is.EqualTo(dbEntry.WageTo));
     }
 
     [Test]
@@ -226,7 +230,9 @@ internal class EditVacancyMutation
         var input = new EditVacancyInput(Guid.NewGuid(),
             "NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle" +
             "_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle_NotValidTitle",
-            "NotValidDescriprion");
+            "NotValidDescriprion",
+            1000,
+            500);
 
         var request = TestDataSource.GetEditVacancyGraphQLRequest(input);
 
@@ -237,7 +243,7 @@ internal class EditVacancyMutation
 
         var editVacancyOutput = result.Data.EditVacancy;
         Assert.NotNull(editVacancyOutput.Errors);
-        Assert.IsTrue(editVacancyOutput.Errors.Count() == 3);
+        Assert.IsTrue(editVacancyOutput.Errors.Count() == 4);
 
         var titleValidationError = editVacancyOutput.Errors;
 
@@ -258,6 +264,12 @@ internal class EditVacancyMutation
             Is.EqualTo("Description cannot be less than 30 characters"));
         Assert.That(titleValidationError[2].Field,
             Is.EqualTo("Description"));
+
+        Assert.NotNull(titleValidationError[3]);
+        Assert.That(titleValidationError[3].Message,
+            Is.EqualTo("WageFrom cannot be bigger than wageTo"));
+        Assert.That(titleValidationError[3].Field,
+            Is.EqualTo("wageTo"));
     }
 
     [OneTimeTearDown]
